@@ -27,6 +27,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         searchBar.delegate = self
         
         searchBar.returnKeyType = UIReturnKeyType.done
+        searchBar.showsCancelButton = false
         
         parsePokemonCSV()
         initAudio()
@@ -41,7 +42,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             musicPlayer = try AVAudioPlayer(contentsOf: URL(string: path!)!)
             musicPlayer.prepareToPlay()
             musicPlayer.numberOfLoops = -1
-            musicPlayer.play()
+            musicPlayer.pause()
             
         } catch let err as NSError {
             print(err.debugDescription)
@@ -119,24 +120,28 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        view.endEditing(true)
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text == nil || searchBar.text == "" {
-            inSearchMode = false
-            collection.reloadData()
+        if (searchBar.text == nil || searchBar.text == "") {
             view.endEditing(true)
+            inSearchMode = false
+            searchBar.showsCancelButton = false
+            collection.reloadData()
             
         } else {
             inSearchMode = true
-            
+            searchBar.showsCancelButton = true
             let lower = searchBar.text!.lowercased()
-            
             filteredPokemon = pokemon.filter({$0.name.range(of: lower) != nil})
             collection.reloadData()
         }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        inSearchMode = false
+        view.endEditing(true)
+        searchBar.showsCancelButton = false
+        collection.reloadData()
     }
 }
 
