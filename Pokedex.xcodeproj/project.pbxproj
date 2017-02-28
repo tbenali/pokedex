@@ -15,6 +15,7 @@
 		E23B1F971E65F5CF00628B0A /* pokemon.csv in Resources */ = {isa = PBXBuildFile; fileRef = E23B1F961E65F5CF00628B0A /* pokemon.csv */; };
 		E23B1F9A1E65F70B00628B0A /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23B1F991E65F70B00628B0A /* Pokemon.swift */; };
 		E23B1F9D1E65FE5200628B0A /* PokeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23B1F9C1E65FE5200628B0A /* PokeCell.swift */; };
+		E2B48A9A1E6610820012555D /* csv.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B48A991E6610820012555D /* csv.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		E23B1F961E65F5CF00628B0A /* pokemon.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pokemon.csv; sourceTree = "<group>"; };
 		E23B1F991E65F70B00628B0A /* Pokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pokemon.swift; sourceTree = "<group>"; };
 		E23B1F9C1E65FE5200628B0A /* PokeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokeCell.swift; sourceTree = "<group>"; };
+		E2B48A991E6610820012555D /* csv.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = csv.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				E23B1F881E65F33800628B0A /* Main.storyboard */,
 				E23B1F8B1E65F33800628B0A /* Assets.xcassets */,
 				E23B1F961E65F5CF00628B0A /* pokemon.csv */,
+				E2B48A991E6610820012555D /* csv.swift */,
 				E23B1F8D1E65F33800628B0A /* LaunchScreen.storyboard */,
 				E23B1F901E65F33800628B0A /* Info.plist */,
 			);
@@ -167,6 +170,7 @@
 				E23B1F871E65F33800628B0A /* ViewController.swift in Sources */,
 				E23B1F851E65F33800628B0A /* AppDelegate.swift in Sources */,
 				E23B1F9A1E65F70B00628B0A /* Pokemon.swift in Sources */,
+				E2B48A9A1E6610820012555D /* csv.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +334,7 @@
 				E23B1F951E65F33800628B0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
