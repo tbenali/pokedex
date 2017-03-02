@@ -47,6 +47,16 @@
                                             <action selector="musicButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BKM-xt-EsW"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGy-JN-UFg">
+                                        <rect key="frame" x="8" y="27" width="68" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Language">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="languageButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kdu-I1-zgV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.34509803921568627" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -137,6 +147,7 @@
                     </view>
                     <connections>
                         <outlet property="collection" destination="JNB-eY-nJx" id="zXh-0l-OTC"/>
+                        <outlet property="languageButton" destination="HGy-JN-UFg" id="Lgr-oU-giE"/>
                         <outlet property="searchBar" destination="19t-5H-oe9" id="czf-8O-M9T"/>
                         <segue destination="d80-Lx-scp" kind="show" identifier="PokemonDetailVC" id="yDX-0n-P8r"/>
                     </connections>

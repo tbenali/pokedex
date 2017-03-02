@@ -13,14 +13,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @IBOutlet weak var collection: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var languageButton: UIButton!
     
+    var languages = [Language]()
     var pokemon = [Pokemon]()
+    var AllPokemon = [Pokemon]()
     var filteredPokemon = [Pokemon]()
     var musicPlayer: AVAudioPlayer!
     var inSearchMode = false
+    var language = "en"
+    var langID = 9
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        languageButton.setTitle("English", for: .normal)
         
         collection.dataSource = self
         collection.delegate = self
@@ -29,7 +36,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         searchBar.returnKeyType = UIReturnKeyType.done
         searchBar.showsCancelButton = false
         
+        parseLanguageCSV()
+        langID = getLanguageID(currentLanguage: language)
+        
         parsePokemonCSV()
+        pokemon = AllPokemon
         initAudio()
         
     }
@@ -50,23 +61,70 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
 
     func parsePokemonCSV() {
-        let path = Bundle.main.path(forResource: "pokemon", ofType: "csv")
+        let path = Bundle.main.path(forResource: "pokemon_species_names", ofType: "csv")
         
         do {
             let csv = try CSV(contentsOfURL: path!)
             let rows = csv.rows
             
             for row in rows {
-                let pokeID = Int(row["id"]!)!
-                let name = row["identifier"]!
+                let localLang = Int(row["local_language_id"]!)!
+                let pokeID = Int(row["pokemon_species_id"]!)!
+                let name = row["name"]!
                 
-                let poke = Pokemon(name: name, pokedexID: pokeID)
+                let poke = Pokemon(pokedexID: pokeID, localLang: localLang, name: name)
                 
-                pokemon.append(poke)
+                AllPokemon.append(poke)
             }
         } catch let err as NSError {
             print(err.debugDescription)
         }
+    }
+    
+    func parseLanguageCSV() {
+        let path = Bundle.main.path(forResource: "languages", ofType: "csv")
+        
+        do {
+            let csv = try CSV(contentsOfURL: path!)
+            let rows = csv.rows
+            
+            for row in rows {
+                
+                let id = Int(row["id"]!)!
+                let name = row["identifier"]!
+                
+                let lang = Language(id: id, name: name)
+                
+                languages.append(lang)
+            }
+        } catch let err as NSError {
+            print(err.debugDescription)
+        }
+    }
+    
+    func getLanguageID(currentLanguage: String) -> Int {
+        var usedLanguageID = 0
+        
+        for lang in languages {
+            if currentLanguage == lang.name {
+                usedLanguageID = lang.id
+            }
+        }
+        
+        return usedLanguageID
+    }
+    
+    func filterByLanguage(pokemons: [Pokemon], currentLanguage: Int) -> [Pokemon]{
+        
+        var pokemonsFiltered = [Pokemon]()
+        
+        for poke in pokemons {
+            if poke.localLang == currentLanguage {
+                pokemonsFiltered.append(poke)
+            }
+        }
+        
+        return pokemonsFiltered
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -151,6 +209,24 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         view.endEditing(true)
         searchBar.showsCancelButton = false
         collection.reloadData()
+    }
+    
+    @IBAction func languageButtonPressed(_ sender: UIButton) {
+        
+        pokemon = filterByLanguage(pokemons: AllPokemon, currentLanguage: langID)
+        
+        if language == "en" {
+            languageButton.setTitle("Français", for: .normal)
+            language = "fr"
+            langID = 5
+        } else {
+            languageButton.setTitle("English", for: .normal)
+            language = "en"
+            langID = 9
+        }
+        
+        collection.reloadData()
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

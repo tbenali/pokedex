@@ -21,6 +21,7 @@
 		E2CEA75A1E675A5F0075EDD5 /* PokemonDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CEA7591E675A5F0075EDD5 /* PokemonDetailVC.swift */; };
 		E2CEA75D1E68856E0075EDD5 /* languages.csv in Resources */ = {isa = PBXBuildFile; fileRef = E2CEA75B1E68856E0075EDD5 /* languages.csv */; };
 		E2CEA75E1E68856E0075EDD5 /* pokemon_species_names.csv in Resources */ = {isa = PBXBuildFile; fileRef = E2CEA75C1E68856E0075EDD5 /* pokemon_species_names.csv */; };
+		E2CEA7601E6892B10075EDD5 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CEA75F1E6892B10075EDD5 /* Language.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		E2CEA7591E675A5F0075EDD5 /* PokemonDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonDetailVC.swift; sourceTree = "<group>"; };
 		E2CEA75B1E68856E0075EDD5 /* languages.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = languages.csv; sourceTree = "<group>"; };
 		E2CEA75C1E68856E0075EDD5 /* pokemon_species_names.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pokemon_species_names.csv; sourceTree = "<group>"; };
+		E2CEA75F1E6892B10075EDD5 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				E23B1F991E65F70B00628B0A /* Pokemon.swift */,
+				E2CEA75F1E6892B10075EDD5 /* Language.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				E23B1F9D1E65FE5200628B0A /* PokeCell.swift in Sources */,
 				E23B1F871E65F33800628B0A /* ViewController.swift in Sources */,
 				E23B1F851E65F33800628B0A /* AppDelegate.swift in Sources */,
+				E2CEA7601E6892B10075EDD5 /* Language.swift in Sources */,
 				E2CEA75A1E675A5F0075EDD5 /* PokemonDetailVC.swift in Sources */,
 				E23B1F9A1E65F70B00628B0A /* Pokemon.swift in Sources */,
 				E2B48A9A1E6610820012555D /* csv.swift in Sources */,
