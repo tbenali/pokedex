@@ -11,9 +11,14 @@ import AVFoundation
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
     
+    //MARK: - Vars
     @IBOutlet weak var collection: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var languageButton: UIButton!
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     
     var languages = [Language]()
     var pokemon = [Pokemon]()
@@ -24,6 +29,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     var language = "en"
     var langID = 9
 
+    //MARK: - Init Funcs
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +47,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         parsePokemonCSV()
         pokemon = AllPokemon
+        pokemon = filterByLanguage(pokemons: AllPokemon, currentLanguage: langID)
         initAudio()
         
     }
@@ -59,6 +66,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             print(err.debugDescription)
         }
     }
+    
+    //MARK: - Parsing
 
     func parsePokemonCSV() {
         let path = Bundle.main.path(forResource: "pokemon_species_names", ofType: "csv")
@@ -102,6 +111,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    //MARK: - Language Funcs
+    
     func getLanguageID(currentLanguage: String) -> Int {
         var usedLanguageID = 0
         
@@ -127,6 +138,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return pokemonsFiltered
     }
     
+    //MARK: - Collection
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell {
@@ -176,6 +189,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return CGSize(width: 105, height: 105)
     }
     
+    //MARK: - Buttons
+    
     @IBAction func musicButtonPressed(_ sender: UIButton) {
         
         if musicPlayer.isPlaying {
@@ -185,30 +200,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             musicPlayer.play()
             sender.alpha = 1.0
         }
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if (searchBar.text == nil || searchBar.text == "") {
-            view.endEditing(true)
-            inSearchMode = false
-            searchBar.showsCancelButton = false
-            collection.reloadData()
-            
-        } else {
-            inSearchMode = true
-            searchBar.showsCancelButton = true
-            let lower = searchBar.text!.lowercased()
-            filteredPokemon = pokemon.filter({$0.name.range(of: lower) != nil})
-            collection.reloadData()
-        }
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = nil
-        inSearchMode = false
-        view.endEditing(true)
-        searchBar.showsCancelButton = false
-        collection.reloadData()
     }
     
     @IBAction func languageButtonPressed(_ sender: UIButton) {
@@ -226,8 +217,36 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         
         collection.reloadData()
-        
     }
+    
+    //MARK: - SearchBar
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchBar.text == nil || searchBar.text == "") {
+            view.endEditing(true)
+            inSearchMode = false
+            searchBar.showsCancelButton = false
+            collection.reloadData()
+            
+        } else {
+            inSearchMode = true
+            searchBar.showsCancelButton = true
+            let lower = searchBar.text!
+            filteredPokemon = pokemon.filter({$0.name.range(of: lower) != nil})
+            collection.reloadData()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        inSearchMode = false
+        view.endEditing(true)
+        searchBar.showsCancelButton = false
+        collection.reloadData()
+    }
+    
+    
+    //MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PokemonDetailVC" {
