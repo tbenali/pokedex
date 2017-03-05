@@ -17,6 +17,7 @@ class PokemonDetailVC: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var mainImg: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var pokedexIDLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var defenseLabel: UILabel!
     @IBOutlet weak var heightLabel: UILabel!
@@ -34,8 +35,38 @@ class PokemonDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let img = UIImage(named: "\(pokemon.pokedexID).png")
+        
+        mainImg.image = img
+        currentEvoImg.image = img
+        pokedexIDLabel.text = "\(pokemon.pokedexID)"
+        
+        
+        
         nameLabel.text = pokemon.name
+        pokemon.downloadPokemonDetails {
+            self.updateUI()
+        }
 
+    }
+    
+    func updateUI() {
+        attackLabel.text = pokemon.attack
+        defenseLabel.text = pokemon.defense
+        heightLabel.text = pokemon.height
+        weightLabel.text = pokemon.weight
+        typeLabel.text = pokemon.type
+        descriptionLabel.text = pokemon.description
+        
+        if pokemon.nextEvolutionID == "" {
+            evoLabel.text = "No Evolution"
+            nextEvoImg.isHidden = true
+        } else {
+            nextEvoImg.isHidden = false
+            nextEvoImg.image = UIImage(named: "\(pokemon.nextEvolutionID).png")
+            let str = "Next Evolution: \(pokemon.nextEvolutionName) - LVL \(pokemon.nextEvolutionLevel)"
+            evoLabel.text = str
+        }
     }
     
     @IBAction func returnButtonPressed(_ sender: UIButton) {
