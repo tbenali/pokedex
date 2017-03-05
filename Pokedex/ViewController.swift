@@ -32,7 +32,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     //MARK: - Init Funcs
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         languageButton.setTitle("English", for: .normal)
         
         collection.dataSource = self
